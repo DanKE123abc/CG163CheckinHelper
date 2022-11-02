@@ -39,7 +39,7 @@ def writeMsg():#编辑信息
         if signReturn.status_code == 200:
             signResult = "成功"
         else:
-            signResult = "返回码："+str(signReturn.status_code)
+            signResult = "返回码="+str(signReturn.status_code)
     message = '''⏰当前时间：{} 
 您今天签到网易云游戏了吗？
 ####################
