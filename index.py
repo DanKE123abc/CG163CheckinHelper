@@ -47,7 +47,8 @@ def writeMsg():#编辑信息
 💻签到结果：{}
 ####################
 祝您过上美好的一天！
-                        ——by DanKe'''.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time() + 28800)),
+
+     ——by DanKe'''.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time() + 28800)),
                         checkResult,
                         signResult)
     return message
