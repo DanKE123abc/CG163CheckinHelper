@@ -29,6 +29,7 @@ def writeMsg():#编辑信息
         checkReturn = check()
     except:
         checkResult = "失败"
+        signResult = "账号验证失败，无法签到"
     if checkReturn.status_code == 200:
         checkResult = "成功"
         try:
@@ -38,8 +39,13 @@ def writeMsg():#编辑信息
 
         if signReturn.status_code == 200:
             signResult = "成功"
+        elif signReturn.status_code == 400:
+            signResult = "你已经签到过了"
         else:
-            signResult = "返回码="+str(signReturn.status_code)
+            signResult = "失败，code="+str(signReturn.status_code)
+    else:
+        checkResult = "失败，code="+str(checkReturn.status_code)
+        signResult = "账号验证失败，无法签到"
     message = '''⏰当前时间：{} 
 您今天签到网易云游戏了吗？
 ####################
