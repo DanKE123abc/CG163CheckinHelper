@@ -1,4 +1,4 @@
-# CG163CheckHelper
+# CG163CheckinHelper
 
 ![Language](https://img.shields.io/badge/Language-Python-yellow)![LICENSE](https://img.shields.io/badge/LICENSE-GPL--3.0-red)![Author](https://img.shields.io/badge/Author-DanKe-blue)
 
