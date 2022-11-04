@@ -4,7 +4,7 @@ import setting
 import requests
 import wechatpush
 
-#时间：2022/11/2
+#时间：2022/11/4
 #作者：蛋壳
 #Another: DanKe
 #备注：网易云游戏自动签到
@@ -25,26 +25,18 @@ def check():#验证
     return result
 
 def writeMsg():#编辑信息
-    try:
-        checkReturn = check()
-    except:
-        checkResult = "失败"
-        signResult = "账号验证失败，无法签到"
+    checkReturn = check()
     if checkReturn.status_code == 200:
         checkResult = "成功"
-        try:
-            signReturn = sign()
-        except:
-            signResult = "无法签到"
-
+        signReturn = sign()
         if signReturn.status_code == 200:
             signResult = "成功"
         elif signReturn.status_code == 400:
             signResult = "你已经签到过了"
         else:
-            signResult = "失败，code="+str(signReturn.status_code)
+            signResult = "失败，code="+str(signReturn.status_code)+"，请通过code判断失败原因"
     else:
-        checkResult = "失败，code="+str(checkReturn.status_code)
+        checkResult = "失败，code="+str(checkReturn.status_code)+"，请通过code判断失败原因"
         signResult = "账号验证失败，无法签到"
     message = '''⏰当前时间：{} 
 您今天签到网易云游戏了吗？
