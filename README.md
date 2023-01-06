@@ -22,6 +22,14 @@
 
 ```
 
+### 注意
+
+新版本中的CheckinHelper已经移除了内置的requests库，需要的请自行安装。
+
+```
+pip install requests -t.
+```
+
 ### 起因
 
 懒 + 健忘
