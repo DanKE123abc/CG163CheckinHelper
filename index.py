@@ -33,6 +33,8 @@ def writeMsg():#编辑信息
             signResult = "成功"
         elif signReturn.status_code == 400:
             signResult = "你已经签到过了"
+        elif signReturn.status_code == 401:
+            signResult = "登录信息可能已经失效"
         else:
             signResult = "失败，code="+str(signReturn.status_code)+"，请通过code判断失败原因"
     else:
