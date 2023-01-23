@@ -4,27 +4,31 @@ import setting
 import requests
 import wechatpush
 
-#时间：2023/1/9
-#作者：蛋壳
-#Another: DanKe
-#备注：网易云游戏自动签到
+# 时间：2023/1/9
+# 作者：蛋壳
+# Another: DanKe
+# 备注：网易云游戏自动签到
 
 sign_url = setting.Sign_url
 current = setting.Current
 headers = setting.headers
 
-def buildHeaders(authorization):#更改headers
+
+def buildHeaders(authorization):  # 更改headers
     headers["Authorization"] = authorization
 
-def sign():#签到
+
+def sign():  # 签到
     result = requests.post(url=sign_url, headers=headers)
     return result
 
-def check():#验证
+
+def check():  # 验证
     result = requests.get(url=current, headers=headers)
     return result
 
-def writeMsg():#编辑信息
+
+def writeMsg():  # 编辑信息
     checkReturn = check()
     if checkReturn.status_code == 200:
         checkResult = "成功"
@@ -34,7 +38,8 @@ def writeMsg():#编辑信息
         elif signReturn.status_code == 400:
             signResult = "你已经签到过了"
         else:
-            signResult = "失败，code="+str(signReturn.status_code)+"，请通过code判断失败原因"
+            signResult = "失败，code=" + \
+                str(signReturn.status_code)+"，请通过code判断失败原因"
     elif checkReturn.status_code == 401:
         checkResult = "登录信息可能已经失效"
         signResult = "账号验证失败，无法签到"
@@ -50,13 +55,12 @@ def writeMsg():#编辑信息
 祝您过上美好的一天！
 
      ——by DanKe'''.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time() + 28800)),
-                        checkResult,
-                        signResult)
+                          checkResult,
+                          signResult)
     return message
 
 
-
-def handler(event, context):#这里是阿里云的入口，腾讯云要改成main_handler
+def handler(event, context):  # 阿里云，华为云入口
     config_path = "config.json"
     with open(config_path, "r") as f:
         row_data = json.load(f)
@@ -71,11 +75,16 @@ def handler(event, context):#这里是阿里云的入口，腾讯云要改成mai
             msg_en = 'Check in failed,possible error in Authorization'
             print(msg)
             print(msg_en)
-        if setting.WechatPush == True :
+        if setting.WechatPush == True:
             wechatpush.push_text(pushid, msg)
-        elif setting.WechatPush == False :
+        elif setting.WechatPush == False:
             print("微信推送功能未启用")
             print('WeChatPush is not enabled')
 
-if __name__ == '__main__':
+
+def handler(event, context):  # 腾讯云入口
+    handler(event, context)
+
+
+if __name__ == '__main__':  # 直接运行入口
     handler(None, None)
